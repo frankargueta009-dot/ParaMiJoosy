@@ -1,2 +1,0 @@
-# ParaMiJoosy
-Prueba

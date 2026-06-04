@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Jossy 💜</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{
+background:linear-gradient(135deg,#090014,#1a0033,#081a3a);
+overflow:hidden;color:white;height:100vh;
+}
+.stars,.hearts{position:fixed;inset:0;pointer-events:none}
+.star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;animation:twinkle 4s infinite}
+@keyframes twinkle{50%{opacity:.2}}
+.center{
+position:absolute;inset:0;display:flex;flex-direction:column;
+justify-content:center;align-items:center;text-align:center;padding:20px
+}
+.envelope{
+width:220px;height:140px;cursor:pointer;position:relative;
+animation:float 3s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-10px)}}
+.env-body{
+position:absolute;bottom:0;width:100%;height:100px;
+background:linear-gradient(45deg,#7c3aed,#38bdf8);
+border-radius:0 0 12px 12px;
+}
+.env-top{
+position:absolute;width:0;height:0;
+border-left:110px solid transparent;
+border-right:110px solid transparent;
+border-top:75px solid #a855f7;
+top:0;transform-origin:top;transition:1s;
+}
+.open .env-top{transform:rotateX(180deg)}
+.title{font-size:2.2rem;margin-bottom:15px;color:#e9c7ff}
+.subtitle{margin-bottom:25px;color:#9de7ff}
+.letterPage{
+position:fixed;inset:0;overflow-y:auto;padding:20px;
+display:none;
+}
+.card{
+max-width:850px;margin:20px auto 60px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
+border-radius:25px;padding:35px;
+border:1px solid rgba(255,255,255,.2);
+}
+.card h1{text-align:center;margin-bottom:25px;color:#ffd7ff}
+.card p{line-height:1.9;margin-bottom:16px}
+.finalBtn{
+margin-top:20px;padding:15px 25px;border:none;border-radius:30px;
+cursor:pointer;background:linear-gradient(45deg,#7c3aed,#38bdf8);
+color:white;
+}
+.finalMsg{display:none;margin-top:25px;text-align:center;font-size:1.1rem}
+.heart{
+position:absolute;font-size:24px;
+animation:rise 8s linear forwards;
+}
+@keyframes rise{
+from{transform:translateY(100vh);opacity:0}
+20%{opacity:1}
+to{transform:translateY(-150px);opacity:0}
+}
+audio{display:none}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="hearts" id="hearts"></div>
+
+<div class="center" id="intro">
+<h1 class="title">Para Jossy 💜</h1>
+<p class="subtitle">Una pequeña sorpresa de Anthony</p>
+
+<div class="envelope" id="env" onclick="openLetter()">
+<div class="env-top"></div>
+<div class="env-body"></div>
+</div>
+
+<p style="margin-top:20px">Toca el sobre ✉️</p>
+</div>
+
+<div class="letterPage" id="letterPage">
+<div class="card">
+<h1>Para mi querida Josseline ❤️</h1>
+
+<p>Mi amor,</p>
+
+<p>Quiero que sepas que desde que llegaste a mi vida, muchas cosas se volvieron más bonitas. Hay días en los que una simple sonrisa tuya tiene el poder de alegrarme por completo, y momentos en los que escucharte hablar me hace sentir que todo está bien.</p>
+
+<p>Me encanta la forma en que eres, tu manera de reír, de mirar, de hacer que incluso los días más simples se conviertan en recuerdos especiales. A tu lado he aprendido que el amor no siempre está en los grandes detalles, sino en esos pequeños momentos que terminan significándolo todo.</p>
+
+<p>Gracias por acompañarme, por escucharme, por hacerme sentir querido y por permitirme ser parte de tu vida. No sé qué nos traerá el futuro, pero sí sé que hoy me siento afortunado de poder llamarte mi amor.</p>
+
+<p>Y si algún día dudas de cuánto te quiero, recuerda esto: entre todas las personas que he conocido, tú eres una de las razones más bonitas por las que sonrío.</p>
+
+<p><b>Gracias por existir, Jossy.</b></p>
+
+<p>Hay personas que pasan por nuestra vida dejando recuerdos, pero hay otras que dejan algo mucho más profundo. Tú eres una de esas personas.</p>
+
+<p>Gracias por tu sonrisa, por tu compañía, por los momentos que compartimos y por ser exactamente quien eres.</p>
+
+<p>Te amo, Jossy. 💜</p>
+
+<p style="text-align:right"><b>Anthony 💜</b></p>
+
+<button class="finalBtn" onclick="showFinal()">💜 Un último mensaje</button>
+
+<div class="finalMsg" id="finalMsg">
+<p><b>"Entre todas las estrellas de esta galaxia, tú sigues siendo mi favorita."</b></p>
+<p>— Anthony 💜✨</p>
+</div>
+
+</div>
+</div>
+
+<audio id="music" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8f1c3f2.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+for(let i=0;i<200;i++){
+let s=document.createElement('div');
+s.className='star';
+s.style.left=Math.random()*100+'%';
+s.style.top=Math.random()*100+'%';
+document.getElementById('stars').appendChild(s);
+}
+
+function hearts(){
+let h=document.createElement('div');
+h.className='heart';
+h.innerHTML=Math.random()>0.5?'💜':'💙';
+h.style.left=Math.random()*100+'%';
+document.getElementById('hearts').appendChild(h);
+setTimeout(()=>h.remove(),8000);
+}
+setInterval(hearts,700);
+
+function openLetter(){
+document.getElementById('env').classList.add('open');
+document.getElementById('music').play().catch(()=>{});
+setTimeout(()=>{
+document.getElementById('intro').style.display='none';
+document.getElementById('letterPage').style.display='block';
+},1200);
+}
+
+function showFinal(){
+document.getElementById('finalMsg').style.display='block';
+}
+</script>
+
+</body>
+</html>
